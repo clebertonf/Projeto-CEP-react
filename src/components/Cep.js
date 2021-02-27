@@ -1,12 +1,12 @@
 import React from 'react';
-import requestCep from '../services/cepAPI';
+import { connect } from 'react-redux';
+import { requestApiCepThunk } from '../redux/actions/index';
 
 class Cep extends React.Component {
     constructor(){
         super();
 
         this.state = {
-            requestApi: [],
             cep: '',
         }
         this.handleChange = this.handleChange.bind(this);
@@ -19,20 +19,19 @@ class Cep extends React.Component {
             });
     }
 
-   async handleClick() {
-    const validateCep = /^[0-9]{5}[0-9]{3}$/;
-    if(validateCep.test(this.state.cep)){
-        const returnApi =  await requestCep(this.state.cep);
-        this.setState({
-            requestApi: [returnApi],
-            cep: '',
-        })
-    }else {
+    handleClick() {
+      const { cep } = this.props;
+      const validateCep = /^[0-9]{5}[0-9]{3}$/;
+
+      if(validateCep.test(this.state.cep)){
+         cep(this.state.cep);
+      } else {
         alert('Digite um  CEP valido!')
-    }
+      }
     }
 
     render() {
+        const { stateGlobal } = this.props;
         return (
             <div>
               <h3>Digite seu CEP</h3>
@@ -47,14 +46,15 @@ class Cep extends React.Component {
                     BUSCAR
                 </button>
               </label>
-              <h3>{this.state.requestApi
-                .map((value, index) => <div key={index}>
-                 {value.message} <br/>
-                 {value.address} <br/>
-                 {value.district} <br/>
-                 {value.state_name} <br/>
-                 {value.city} <br />
-                 {value.number_formatted}
+              <h3>
+                 {stateGlobal.map((value, index) => 
+                 <div key={index}>
+                   {value.message} <br/>
+                   {value.address} <br/>
+                   {value.district} <br/>
+                   {value.state_name} <br/>
+                   {value.city} <br />
+                   {value.number_formatted}
                  </div> )}
               </h3>
             </div>
@@ -62,4 +62,12 @@ class Cep extends React.Component {
     }
 }
 
-export default Cep;
+const  mapDispatchToProps = (dispatch) => ({
+    cep: (value) => dispatch(requestApiCepThunk(value)),
+})
+
+const mapStateToProps = (state) => ({
+    stateGlobal: state.searchCep,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cep);
