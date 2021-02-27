@@ -20,15 +20,15 @@ class Cep extends React.Component {
     }
 
    async handleClick() {
-    const validarCep = /^[0-9]{5}[0-9]{3}$/;
-    if(validarCep.test(this.state.cep)){
-        const api =  await requestCep(this.state.cep);
+    const validateCep = /^[0-9]{5}[0-9]{3}$/;
+    if(validateCep.test(this.state.cep)){
+        const returnApi =  await requestCep(this.state.cep);
         this.setState({
-            requestApi: [api],
+            requestApi: [returnApi],
             cep: '',
         })
     }else {
-        alert('Digite cep valido!')
+        alert('Digite um  CEP valido!')
     }
     }
 
