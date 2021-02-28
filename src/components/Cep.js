@@ -1,6 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { requestApiCepThunk } from '../redux/actions/index';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import ListGroup from 'react-bootstrap/ListGroup';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Cep extends React.Component {
     constructor(){
@@ -8,6 +12,7 @@ class Cep extends React.Component {
 
         this.state = {
             cep: '',
+            loading: true,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -25,39 +30,43 @@ class Cep extends React.Component {
 
       if(validateCep.test(this.state.cep)){
          cep(this.state.cep);
+         this.setState({
+           loading: false,
+         })
       } else {
-        alert('Digite um  CEP valido!')
+       alert('Digite um cep Valido')
       }
     }
 
     render() {
         const { stateGlobal } = this.props;
         return (
-            <div>
-              <h3>Digite seu CEP</h3>
-              <label>
-                  <input
-                    type="text"
-                    placeholder="Somente Numeros"
-                    value={ this.state.cep }
-                    onChange={ this.handleChange }
-                  />
-                 <button onClick={ this.handleClick }>
-                    BUSCAR
-                </button>
-              </label>
-              <h3>
-                 {stateGlobal.map((value, index) => 
-                 <div key={index}>
-                   {value.message} <br/>
-                   {value.address} <br/>
-                   {value.district} <br/>
-                   {value.state_name} <br/>
-                   {value.city} <br />
-                   {value.number_formatted}
-                 </div> )}
-              </h3>
-            </div>
+          <div className="div-form">
+            <Form>
+              <Form.Group controlId="formBasicEmail">
+              <Form.Label>Digite seu CEP</Form.Label>
+                <Form.Control 
+                  type="text"
+                  placeholder="Somente Numeros"
+                  value={ this.state.cep }
+                  onChange={ this.handleChange }
+                /> <br/> 
+                {' '}<Button variant="primary" onClick={this.handleClick} >BUSCAR</Button>
+               </Form.Group>
+              {this.state.loading === true ? <> </> :
+               <ListGroup>
+                 {stateGlobal.filter((values) => values !== '').map((value) => <>
+                  <ListGroup.Item>{value.message}</ListGroup.Item>
+                  <ListGroup.Item>{value.address}</ListGroup.Item>
+                  <ListGroup.Item>{value.district}</ListGroup.Item>
+                  <ListGroup.Item>{value.state_name}</ListGroup.Item>
+                  <ListGroup.Item>{value.city}</ListGroup.Item>
+                  <ListGroup.Item>{value.number_formatted}</ListGroup.Item>
+                 </>)}
+               </ListGroup>
+                   }
+            </Form>
+          </div>
         )
     }
 }
