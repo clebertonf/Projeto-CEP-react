@@ -1,13 +1,18 @@
 import React from 'react';
-import requestCep from '../services/cepAPI';
+import { connect } from 'react-redux';
+import { requestApiCepThunk } from '../redux/actions/index';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import ListGroup from 'react-bootstrap/ListGroup';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Cep extends React.Component {
     constructor(){
         super();
 
         this.state = {
-            requestApi: [],
             cep: '',
+            loading: true,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -19,47 +24,59 @@ class Cep extends React.Component {
             });
     }
 
-   async handleClick() {
-    const validarCep = /^[0-9]{5}[0-9]{3}$/;
-    if(validarCep.test(this.state.cep)){
-        const api =  await requestCep(this.state.cep);
-        this.setState({
-            requestApi: [api],
-            cep: '',
-        })
-    }else {
-        alert('Digite cep valido!')
-    }
+    handleClick() {
+      const { cep } = this.props;
+      const validateCep = /^[0-9]{5}[0-9]{3}$/;
+
+      if(validateCep.test(this.state.cep)){
+         cep(this.state.cep);
+         this.setState({
+           loading: false,
+         })
+      } else {
+       alert('Digite um cep Valido')
+      }
     }
 
     render() {
+        const { stateGlobal } = this.props;
         return (
-            <div>
-              <h3>Digite seu CEP</h3>
-              <label>
-                  <input
-                    type="text"
-                    placeholder="Somente Numeros"
-                    value={ this.state.cep }
-                    onChange={ this.handleChange }
-                  />
-                 <button onClick={ this.handleClick }>
-                    BUSCAR
-                </button>
-              </label>
-              <h3>{this.state.requestApi
-                .map((value, index) => <div key={index}>
-                 {value.message} <br/>
-                 {value.address} <br/>
-                 {value.district} <br/>
-                 {value.state_name} <br/>
-                 {value.city} <br />
-                 {value.number_formatted}
-                 </div> )}
-              </h3>
-            </div>
+          <div className="div-form">
+            <Form>
+              <Form.Group controlId="formBasicEmail">
+              <Form.Label>Digite seu CEP</Form.Label>
+                <Form.Control 
+                  type="text"
+                  placeholder="Somente Numeros"
+                  value={ this.state.cep }
+                  onChange={ this.handleChange }
+                /> <br/> 
+                {' '}<Button variant="primary" onClick={this.handleClick} >BUSCAR</Button>
+               </Form.Group>
+              {this.state.loading === true ? <> </> :
+               <ListGroup>
+                 {stateGlobal.map((value) => <>
+                  <ListGroup.Item>{value.message}</ListGroup.Item>
+                  <ListGroup.Item>{value.address}</ListGroup.Item>
+                  <ListGroup.Item>{value.district}</ListGroup.Item>
+                  <ListGroup.Item>{value.state_name}</ListGroup.Item>
+                  <ListGroup.Item>{value.city}</ListGroup.Item>
+                  <ListGroup.Item>{value.number_formatted}</ListGroup.Item>
+                 </>)}
+               </ListGroup>
+                   }
+            </Form>
+          </div>
         )
     }
 }
 
-export default Cep;
+const  mapDispatchToProps = (dispatch) => ({
+    cep: (value) => dispatch(requestApiCepThunk(value)),
+})
+
+const mapStateToProps = (state) => ({
+    stateGlobal: state.searchCep,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cep);
