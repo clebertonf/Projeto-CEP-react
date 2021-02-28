@@ -55,7 +55,7 @@ class Cep extends React.Component {
                </Form.Group>
               {this.state.loading === true ? <> </> :
                <ListGroup>
-                 {stateGlobal.filter((values) => values !== '').map((value) => <>
+                 {stateGlobal.map((value) => <>
                   <ListGroup.Item>{value.message}</ListGroup.Item>
                   <ListGroup.Item>{value.address}</ListGroup.Item>
                   <ListGroup.Item>{value.district}</ListGroup.Item>
