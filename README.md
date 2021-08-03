@@ -18,3 +18,11 @@ Esta estrutura é a padrão de projetos React.
 4. SERVICES: Pasta onde ficam as funçoes de conexão e serviços de API'S.
 
 ## tecnologias utilizadas
+
+- Linguagens:
+  - JavaScript
+- Estilos:
+  - Bootstrap
+- Organização e Padronização de codigo:
+  - Eslint / config-airbnb-base
+
