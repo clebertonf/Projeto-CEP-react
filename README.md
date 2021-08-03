@@ -1,6 +1,6 @@
 ## Site em React para consulta de CEP :desktop_computer:
 
-Olá seja bem vindo ao repositorio do projeto React consulta CEP. :rocket:
+Olá seja bem vindo ao repositório do projeto React consulta CEP. :rocket:
 
 Este projeto consiste em um site em React onde e possível consultar cep de qualquer
 Localidade do Brasil. Foi utilizada um API pública, que pode ser consultada 
@@ -25,6 +25,8 @@ Esta estrutura é a padrão de projetos React.
   - Bootstrap
 - Organização e Padronização de codigo:
   - Eslint / config-airbnb-base
+- Gerenciamento de estado:
+  - Redux
 
 ## Começando
 
