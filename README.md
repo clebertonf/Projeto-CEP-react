@@ -26,3 +26,25 @@ Esta estrutura é a padrão de projetos React.
 - Organização e Padronização de codigo:
   - Eslint / config-airbnb-base
 
+## Começando
+
+- Clone o repositório git clone git@github.com:clebertonf/project-CEP-react.git
+- Na raiz do projeto rode o comando npm install para instalar as depedências do projeto.
+
+## Executando
+
+- `"npm start": Inicia o projeto React na porta padrão 3000 `
+
+## Funcionalidade principal
+
+Na pagina inicial digite um CEP valido com somente os números
+
+![funcionalidade-principal](./public/imgs/01-pagina-inicial.png)
+
+Exemplos de Cep Válidos:
+
+1. ![cep 1](./public/imgs/02-cep-consultado.png)
+
+2. ![cep 2](./public/imgs/03-cep2.png)
+
+
