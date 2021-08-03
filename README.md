@@ -37,7 +37,7 @@ Esta estrutura é a padrão de projetos React.
 
 ## Funcionalidade principal
 
-Na pagina inicial digite um CEP valido com somente os números
+Na pagina inicial digite um CEP valido com somente os números:
 
 ![funcionalidade-principal](./public/imgs/01-pagina-inicial.png)
 
@@ -53,3 +53,5 @@ Caso seja passado campo vazio ou CEP inválido, a seguinte messagem e retornada:
 ![erro](./public/imgs/04-campo-vazio.png)
 
 
+Muito Obrigado por acompanhar até aqui, Contribuições serão bem vindas, qualquer dúvida 
+não deixe de me contactar. :rocket:
