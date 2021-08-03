@@ -1,10 +1,9 @@
 const INITIAL_STATE = [{
-    message: '',
-    address: '',
-    district: '',
-    state_name: '',
+    code: '',
+    state: '',
     city: '',
-    number_formatted: '',
+    district: '',
+    address: '',
 }];
 
 function searchCep(state = INITIAL_STATE, action) {
@@ -12,12 +11,11 @@ function searchCep(state = INITIAL_STATE, action) {
         case 'INITIAL_CEP':
             return [{
                 ...state,
-                message: action.payload.message,
-                address: action.payload.address,
-                district: action.payload.district,
-                state_name: action.payload.state_name,
-                city: action.payload.city,
-                number_formatted: action.payload.number_formatted,
+                message: action.payload.code,
+                address: action.payload.state,
+                district: action.payload.city,
+                state_name: action.payload.district,
+                city: action.payload.address,
             }];
         default:
           return state;
