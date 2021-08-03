@@ -43,8 +43,13 @@ Na pagina inicial digite um CEP valido com somente os números
 
 Exemplos de Cep Válidos:
 
-1. ![cep 1](./public/imgs/02-cep-consultado.png)
+![cep 1](./public/imgs/02-cep-consultado.png)
 
-2. ![cep 2](./public/imgs/03-cep2.png)
+![cep 2](./public/imgs/03-cep2.png)
+
+O cep e validado com um REGEX.
+Caso seja passado campo vazio ou CEP inválido, a seguinte messagem e retornada:
+
+![erro](./public/imgs/04-campo-vazio.png)
 
 
